@@ -1,0 +1,23 @@
+name: Notebook request
+description: Request a notebook to be added to the notebooks repository
+title: "[NB Request]: "
+labels: ["request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for requesting a notebook. Please fill out a form below to give our team more information about the guide you would like to see added to the notebooks repository.
+  - type: textarea
+    id: notebook-description
+    attributes:
+      label: Detailed description of the notebook
+      description: Please provide a detailed description of what you would like to see in the notebook. Please list any models, tools, technologies, or libraries you would like to see used in the notebook.
+    validations:
+      required: true
+  - type: textarea
+    id: notebook-link
+    attributes:
+      label: Link to relevant models, tools, technologies, or libraries
+      description: Please link docs or other relevant resources that might help us create this notebook
+    validations:
+      required: true
