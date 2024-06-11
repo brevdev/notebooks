@@ -8,6 +8,12 @@ body:
       value: |
         Thank you for pointing out any bugs in our notebooks!
   - type: textarea
+    id: nb
+    attributes:
+      label: Which notebook?
+    validations:
+      required: true
+  - type: textarea
     id: what-happened
     attributes:
       label: What happened?
