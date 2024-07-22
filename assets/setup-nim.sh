@@ -40,40 +40,14 @@ sudo usermod -aG docker $USER
 mkdir -p $HOME/.nim-cache
 
 # Log in to NGC
-if [ -z "${NGC_API_KEY:-}" ]; then
-    echo "NGC_API_KEY is not set. Please set it before running this script."
-    exit 1
-fi
-
-# Create a temporary file to store Docker config
-DOCKER_CONFIG_FILE=$(mktemp)
-
-# Create Docker config JSON
-cat > "$DOCKER_CONFIG_FILE" <<EOF
-{
-    "auths": {
-        "nvcr.io": {
-            "auth": "$(echo -n '$oauthtoken':$NGC_API_KEY | base64)"
-        }
-    }
-}
-EOF
-
-# Use the temporary Docker config file
-export DOCKER_CONFIG=$(dirname "$DOCKER_CONFIG_FILE")
-
-echo "Successfully authenticated with NGC."
-
-# Remove the temporary Docker config file
-rm "$DOCKER_CONFIG_FILE"
+echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
 
 # Run the Docker container
 docker run -d --rm --name=$CONTAINER_NAME \
-    --runtime=nvidia \
     --gpus all \
+    --network=container:verb-workspace \
     --shm-size=16GB \
     -e NGC_API_KEY \
-    -p 8000:8000 \
     -e NIM_PEFT_SOURCE \
     -e NIM_PEFT_REFRESH_INTERVAL \
     -v $HOME/.nim-cache:/home/user/.nim-cache \
