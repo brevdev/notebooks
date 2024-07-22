@@ -37,7 +37,7 @@ docker run -d --rm --name=$CONTAINER_NAME \
     -e NGC_API_KEY \
     -e NIM_PEFT_SOURCE \
     -e NIM_PEFT_REFRESH_INTERVAL \
-    -v $LOCAL_PEFT_DIRECTORY:$NIM_PEFT_SOURCE \
+    -v $(pwd)/workspace/loras:$NIM_PEFT_SOURCE \
     -v $HOME/.nim-cache:/home/user/.nim-cache \
     nvcr.io/nim/meta/llama3-8b-instruct:1.0.0
 
