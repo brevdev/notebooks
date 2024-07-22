@@ -34,9 +34,6 @@ sudo usermod -aG docker $USER
 # Set up NIM cache directory
 mkdir -p $HOME/.nim-cache
 
-# Log in to NGC
-echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
-
 # Download .nemo model from ngc
 /usr/local/ngc-cli/ngc registry model download-version "nvidia/nemo/llama-3-8b-instruct-nemo:1.0" > ngc_output.log 2>&1
 

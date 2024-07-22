@@ -2,6 +2,12 @@
 set -euo pipefail
 set -x
 
+# Log in to NGC
+echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
+
+# Set up NIM cache directory
+mkdir -p $HOME/.nim-cache
+
 # Set environment variables
 export NIM_PEFT_SOURCE=/home/nvs/loras
 export CONTAINER_NAME=meta-llama3-8b-instruct
