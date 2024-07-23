@@ -18,7 +18,7 @@ chmod -R 777 $LOCAL_PEFT_DIRECTORY
 
 # copy the trained lora to the lora directory
 mkdir -p $LOCAL_PEFT_DIRECTORY/llama3.1-8b-law-titlegen
-cp ./results/Meta-llama3.1-8B-Instruct-titlegen/checkpoints/megatron_gpt_peft_lora_tuning.nemo $LOCAL_PEFT_DIRECTORY/llama3-8b-pubmed-qa
+cp ./results/Meta-llama3.1-8B-Instruct-titlegen/checkpoints/megatron_gpt_peft_lora_tuning.nemo $LOCAL_PEFT_DIRECTORY/llama3.1-8b-law-titlegen
 
 # Set up NIM cache directory
 mkdir -p $HOME/.nim-cache
