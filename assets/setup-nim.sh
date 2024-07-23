@@ -1,6 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-set -x
 
 # Log in to NGC
 echo "${NGC_API_KEY}" | docker login nvcr.io -u '$oauthtoken' --password-stdin
