@@ -23,22 +23,22 @@ cp ./results/Meta-Llama-3-8B-Instruct/checkpoints/megatron_gpt_peft_lora_tuning.
 # Set up NIM cache directory
 mkdir -p $HOME/.nim-cache
 
-# Set environment variables
-export NIM_PEFT_SOURCE=/home/nvs/loras
+export NIM_PEFT_SOURCE=/workspace/loras # Path to LoRA models internal to the container
 export CONTAINER_NAME=meta-llama3-8b-instruct
 export NIM_CACHE_PATH=$HOME/.nim-cache
+export NIM_PEFT_REFRESH_INTERVAL=60
 
-# Run the Docker container
 docker run -d --rm --name=$CONTAINER_NAME \
+    --network=container:verb-workspace \
     --runtime=nvidia \
     --gpus all \
-    --network=container:verb-workspace \
     --shm-size=16GB \
     -e NGC_API_KEY \
     -e NIM_PEFT_SOURCE \
     -e NIM_PEFT_REFRESH_INTERVAL \
-    -v $(pwd)/workspace/loras:$NIM_PEFT_SOURCE \
     -v $HOME/.nim-cache:/home/user/.nim-cache \
+    -v /home/ubuntu/workspace:/workspace \
+    -w /workspace \
     nvcr.io/nim/meta/llama3-8b-instruct:1.0.0
 
 # Check if NIM is up
