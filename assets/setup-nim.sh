@@ -24,7 +24,7 @@ cp ./results/Meta-llama3.1-8B-Instruct-titlegen/checkpoints/megatron_gpt_peft_lo
 mkdir -p $HOME/.nim-cache
 
 export NIM_PEFT_SOURCE=/workspace/loras # Path to LoRA models internal to the container
-export CONTAINER_NAME=meta-llama3-8b-instruct
+export CONTAINER_NAME=meta-llama3_1-8b-instruct
 export NIM_CACHE_PATH=$HOME/.nim-cache
 export NIM_PEFT_REFRESH_INTERVAL=60
 
