@@ -17,8 +17,8 @@ popd
 chmod -R 777 $LOCAL_PEFT_DIRECTORY
 
 # copy the trained lora to the lora directory
-mkdir -p $LOCAL_PEFT_DIRECTORY/llama3-8b-pubmed-qa
-cp ./results/Meta-Llama-3-8B-Instruct/checkpoints/megatron_gpt_peft_lora_tuning.nemo $LOCAL_PEFT_DIRECTORY/llama3-8b-pubmed-qa
+mkdir -p $LOCAL_PEFT_DIRECTORY/llama3.1-8b-law-titlegen
+cp ./results/Meta-llama3.1-8B-Instruct-titlegen/checkpoints/megatron_gpt_peft_lora_tuning.nemo $LOCAL_PEFT_DIRECTORY/llama3-8b-pubmed-qa
 
 # Set up NIM cache directory
 mkdir -p $HOME/.nim-cache
@@ -39,7 +39,7 @@ docker run -d --rm --name=$CONTAINER_NAME \
     -v $HOME/.nim-cache:/home/user/.nim-cache \
     -v /home/ubuntu/workspace:/workspace \
     -w /workspace \
-    nvcr.io/nim/meta/llama3-8b-instruct:1.0.0
+    nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0
 
 # Check if NIM is up
 echo "Checking if NIM is up..."

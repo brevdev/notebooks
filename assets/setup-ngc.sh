@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-set -x
+
 # Install Docker CLI
 echo "Installing Docker CLI..."
 sudo apt-get update
@@ -32,5 +32,5 @@ mkdir -p $HOME/.nim-cache
 # Print message before downloading .nemo model
 echo "Downloading .nemo model. This might take a few minutes..."
 # Download .nemo model from ngc
-/usr/local/ngc-cli/ngc registry model download-version "nvidia/nemo/llama-3-8b-instruct-nemo:1.0" > ngc_output.log 2>&1
+/usr/local/ngc-cli/ngc registry model download-version "nvidia/nemo/llama-3_1-8b-instruct-nemo:1.0" > ngc_output.log 2>&1
 echo "Script execution completed."
