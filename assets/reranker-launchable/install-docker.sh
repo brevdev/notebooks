@@ -20,5 +20,8 @@ sudo apt-get install -y docker-ce-cli
 sudo groupadd -g 999 docker || true
 sudo usermod -aG docker $USER
 echo "Permissions set!"
+# intermediate step to ensure that docker works in verb
+sudo chgrp docker /var/run/docker.sock
+ls -l /var/run/docker.sock
 # Set up NIM cache directory
 mkdir -p $HOME/.nim-cache
