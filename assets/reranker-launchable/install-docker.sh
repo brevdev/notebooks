@@ -1,5 +1,5 @@
 #!/bin/bash
- -euo pipefail
+set -euo pipefail
 
 # Install Docker CLI
 echo "Installing Docker CLI..."
@@ -19,5 +19,6 @@ sudo apt-get install -y docker-ce-cli
 # Set up Docker permissions
 sudo groupadd -g 999 docker || true
 sudo usermod -aG docker $USER
+echo "Permissions set!"
 # Set up NIM cache directory
 mkdir -p $HOME/.nim-cache
