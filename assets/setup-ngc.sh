@@ -16,6 +16,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install -y docker-ce-cli
+sudo apt-get install unzip
 # Install NGC CLI (with suppressed output)
 echo "Installing NGC CLI..."
 (
