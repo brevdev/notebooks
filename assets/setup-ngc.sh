@@ -1,36 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# setup-ngc.sh
+#
+# This script downloads and installs the NVIDIA NGC CLI tool.
 set -euo pipefail
+NGC_VERSION="${NGC_VERSION:-3.49.0}"
+NGC_EXPECTED_SHA256="${NGC_EXPECTED_SHA256:-a7569bc82d8c8e146a17f010a07ea10dcfa28bdd6bc68850204f17f93730247e}"
 
-# Install Docker CLI
-echo "Installing Docker CLI..."
-sudo apt-get update
-sudo apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get install -y docker-ce-cli
-# Install NGC CLI (with suppressed output)
-echo "Installing NGC CLI..."
-(
-    cd /tmp
-    wget -q https://api.ngc.nvidia.com/v2/resources/nvidia/ngc-apps/ngc_cli/versions/3.45.0/files/ngccli_linux.zip
-    unzip -q -o ngccli_linux.zip
-    sudo mv ngc-cli /usr/local/ 2>/dev/null
-) >/dev/null 2>&1
-# Set up Docker permissions
-sudo groupadd -g 999 docker || true
-sudo usermod -aG docker $USER
-# Set up NIM cache directory
-mkdir -p $HOME/.nim-cache
-# Print message before downloading .nemo model
-echo "Downloading .nemo model. This might take a few minutes..."
-# Download .nemo model from ngc
-/usr/local/ngc-cli/ngc registry model download-version "nvidia/nemo/llama-3_1-8b-instruct-nemo:1.0" > ngc_output.log 2>&1
-echo "Script execution completed."
+wget -qO ngccli_linux.zip "https://api.ngc.nvidia.com/v2/resources/nvidia/ngc-apps/ngc_cli/versions/${NGC_VERSION}/files/ngccli_linux.zip"
+if [[ $(sha256sum ngccli_linux.zip | cut -d' ' -f1) != "${NGC_EXPECTED_SHA256}" ]]; then
+    echo "SHA256 check failed"
+    exit 1
+fi
+if ! command -v unzip > /dev/null; then
+   echo "missing the unzip command"
+   apt-get install -y unzip
+fi
+unzip -qo ngccli_linux.zip
+for profile in ~/.bash_profile ~/.bashrc ~/.zshrc; do
+    if [[ -f "$profile" ]]; then
+        if ! grep -q "PATH.*ngc-cli" "$profile" 2>/dev/null; then
+            echo "export PATH=\"\$PATH:$(pwd)/ngc-cli\"" >> "$profile"
+        fi
+    fi
+done
+echo "NGC CLI v${NGC_VERSION} installed. Restart terminal or source profile to use."
+echo "Alternatively, you can use an explicit path to: $(pwd)/ngc-cli/ngc"
