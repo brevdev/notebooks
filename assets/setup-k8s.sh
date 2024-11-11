@@ -86,4 +86,10 @@ else
     sudo microk8s kubectl get pods
 fi
 
+echo "Logging into NGC using your API Key"
+sudo microk8s kubectl create secret -n nim-operator docker-registry ngc-secret \
+    --docker-server=nvcr.io \
+    --docker-username='$oauthtoken' \
+    --docker-password=$NGC_API_KEY
+
 echo "Setup of (Micro)K8s is complete. Let it rip!!🤙"
