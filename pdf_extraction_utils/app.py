@@ -325,14 +325,3 @@ class PdfDemo:
                 )
 
         demo.launch(share=True)
-
-
-# if __name__ == "__main__":
-#     client = NvIngestClient(
-#         message_client_hostname="localhost", # Host where nv-ingest-ms-runtime is running
-#         message_client_port=7670
-#     )
-
-#     demo = PdfDemo(client)
-
-#     print(demo.fetch_predefined_files_from_local())
