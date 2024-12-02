@@ -1,14 +1,3 @@
-<!-- Banner Image -->
-<img src="https://uohmivykqgnnbiouffke.supabase.co/storage/v1/object/public/landingpage/brevdevnotebooks.png" width="100%">
-
-<!-- Links -->
-<p align="center">
-  <a href="https://console.brev.dev" style="color: #06b6d4;">Console</a> •
-  <a href="https://brev.dev" style="color: #06b6d4;">Docs</a> •
-  <a href="/" style="color: #06b6d4;">Templates</a> •
-  <a href="https://discord.gg/NVDyv7TUgJ" style="color: #06b6d4;">Discord</a>
-</p>
-
 # Brev.dev Notebooks
 
 This repo contains helpful AI/ML notebook templates for LLMs, multi-modal models, image segmentation, and more. Each notebook has been coupled with the minimum GPU specs required to use them along with a 1-click deploy badge that starts each notebook on a GPU. 
